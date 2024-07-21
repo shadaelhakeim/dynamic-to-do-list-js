@@ -17,10 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function createTaskElement(taskText) {
         const li = document.createElement('li');
         li.textContent = taskText;
+        li.classList.add('task-item');
 
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
-        removeButton.className = 'remove-btn';
+        removeButton.classList.add('remove-btn');
 
         // Event listener to remove the task
         removeButton.onclick = () => {
@@ -42,8 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Create and append new task to the DOM
-        const li = createTaskElement(taskText);
+        // Create a new list item and set its text content
+        const li = document.createElement('li');
+        li.textContent = taskText;
+        li.classList.add('task-item');
+
+        // Create a remove button for the task
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.classList.add('remove-btn');
+
+        // Event listener to remove the task
+        removeButton.onclick = () => {
+            taskList.removeChild(li);
+            removeTaskFromLocalStorage(taskText);
+        };
+
+        // Append the remove button to the list item and the list item to the task list
+        li.appendChild(removeButton);
         taskList.appendChild(li);
 
         // Save task to Local Storage
